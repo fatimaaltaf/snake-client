@@ -7,10 +7,15 @@ const connect = function() {
     });
     // interpret incoming data as text
   conn.setEncoding('utf8'); 
-  conn.on('data', function(data) {
-    console.log("data has come to you from server: ", data);
+  conn.on('data', function(data) { //connection established
+    console.log("data has come to you from server: ", data); //receiving data from server
   })
-  
+
+  conn.on('connect', function() { //once connection established
+    console.log("Successfully connected to game server"); //confirmation message print to us
+    conn.write("Name: UGH"); //sending data to server
+  })
+
     return conn;
   }
 
