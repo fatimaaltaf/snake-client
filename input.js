@@ -1,4 +1,5 @@
 let connection;
+let timerId;
 
 const setupInput = function(conn) {
     const stdin = process.stdin;
@@ -17,20 +18,30 @@ const handleUserInput = function(key) {
       if (key === '\u0003') {
             process.exit();
         } 
-        if (key === 'w') {
+        else if (key === 'w') {
             moves = "Move: up";
         }
-        if (key === 'a') {
+        else if (key === 'a') {
             moves = "Move: left";
         } 
-        if (key === 's') {
+        else if (key === 's') {
             moves = "Move: down";
         }
-        if (key === 'd') {
+        else if (key === 'd') {
             moves = "Move: right";
-        
         }
-        connection.write(moves);
+        else if (key === 'm') {
+          moves = "Say: Here to eat";
+        }
+        else if (key === 'g') {
+          moves = "Say: Get outta my way";
+        }
+        if (moves) {
+          clearInterval(timerId);
+          timerId = setInterval(function() {
+            connection.write(moves);
+          }, 100);
+        }
     };
 
 module.exports = { setupInput };
